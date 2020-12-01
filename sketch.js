@@ -56,6 +56,12 @@ function draw() {
   mango5.display();
 
   stone.display();
+	
+	mango1 = new Mango(840, 160, 25);
+	mango2 = new Mango(920, 180, 25);
+	mango3 = new Mango(970, 130, 25);
+	mango4 = new Mango(1075, 130, 25);
+	mango5 = new Mango(1157, 185, 25);
 
   drawSprites();
 }
@@ -69,11 +75,13 @@ function mouseReleased() {
 }
 
 function detectCollision(lstone, lmango) {
-	mangoBodyPosition = lmango.body.position
-	stoneBodyPosition = lstone.body.position
+	mangoBodyPosition = lmango.body.position;
+	stoneBodyPosition = lstone.body.position;
+
+	var rad12 = lmango.body.circleRadius*2;
 
 	var distance = dist(stoneBodyPosition.x, stoneBodyPosition.y, mangoBodyPosition.x, mangoBodyPosition.y)
-		if(distance<-lmango.r + lmango.r) {
+		if(distance<=rad12) {
 			Matter.Body.setStatic(lmango.body, false)
 		}
 }
@@ -81,6 +89,6 @@ function detectCollision(lstone, lmango) {
 function keyPressed() {
 	if(keyCode === 32) {
 		Matter.Body.setPosition(stone.body, {x:140, y:320})
-		string = new Chain(stone.body, {x: 140, y:320});
+		string.attach(stone.body);
 	}
 }
